@@ -1,13 +1,8 @@
-import { Position } from "../types/shared";
 import { ApplicationWindow } from "./ApplicationWindow";
 
-type Props = {
-  position?: Position;
-};
-
-export const BarApp = ({ position }: Props) => {
+export const BarApp = () => {
   return (
-    <ApplicationWindow position={position}>
+    <ApplicationWindow>
       <div className="p-4 bg-white inline-block text-black">Bar</div>
     </ApplicationWindow>
   );

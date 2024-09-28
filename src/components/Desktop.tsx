@@ -3,7 +3,5 @@ type Props = {
 };
 
 export const Desktop = ({ children }: Props) => {
-  return (
-    <div className="bg-blue-200 w-screen h-screen relative">{children}</div>
-  );
+  return <div className="bg-blue-200 w-screen h-screen">{children}</div>;
 };
