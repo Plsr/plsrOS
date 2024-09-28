@@ -1,8 +1,10 @@
 import { createContext, Dispatch, useReducer } from "react";
+import { ApplicationIds } from "../util/applicationsManifest";
+import { Position } from "../types/shared";
 
 type ReducerAction = {
   type: "open" | "close";
-  id: string;
+  id: ApplicationIds;
 };
 
 export const OpenProgramsContext = createContext<Program[]>([]);
@@ -14,14 +16,15 @@ type Props = {
 };
 
 type Program = {
-  id: string;
+  id: ApplicationIds;
+  position: Position;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
   const reducer = (openPrograms: Program[], action: ReducerAction) => {
     switch (action.type) {
       case "open": {
-        return [...openPrograms, { id: action.id }];
+        return [...openPrograms, { id: action.id, position: { x: 0, y: 0 } }];
       }
       case "close": {
         return openPrograms.filter((program) => program.id !== action.id);
@@ -33,8 +36,20 @@ export const OpenProgramsProvider = ({ children }: Props) => {
   };
 
   const initialPrograms = [
-    { id: crypto.randomUUID() as string } as Program,
-    { id: crypto.randomUUID() as string } as Program,
+    {
+      id: "foo",
+      position: {
+        y: 20,
+        x: 20,
+      },
+    } as Program,
+    {
+      id: "bar",
+      position: {
+        y: 60,
+        x: 60,
+      },
+    } as Program,
   ];
 
   const [openPrograms, openProgramsDispatch] = useReducer(
