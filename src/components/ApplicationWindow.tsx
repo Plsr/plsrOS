@@ -28,6 +28,7 @@ export const ApplicationWindow = ({
       bounds="parent"
       axis="both"
       defaultPosition={{ x: 0, y: 0 }}
+      handle="#top-bar"
     >
       <div
         style={{
@@ -38,7 +39,9 @@ export const ApplicationWindow = ({
         }}
       >
         <div className="flex flex-col bg-white h-full shadow-lg">
-          <div className="bg-stone-200">Top Bar</div>
+          <div id="top-bar" className="bg-stone-200">
+            Top Bar
+          </div>
           {children}
         </div>
       </div>
