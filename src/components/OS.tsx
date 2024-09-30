@@ -13,7 +13,7 @@ export const OS = () => {
     <Desktop>
       {openPrograms.map((p) => {
         const AppComponent = applicationsManifest[p.id].component;
-        return <AppComponent />;
+        return <AppComponent key={p.id} index={p.index} applicationId={p.id} />;
       })}
     </Desktop>
   );

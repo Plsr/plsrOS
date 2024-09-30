@@ -3,7 +3,7 @@ import { ApplicationIds } from "../util/applicationsManifest";
 import { Position } from "../types/shared";
 
 type ReducerAction = {
-  type: "open" | "close";
+  type: "open" | "close" | "focus";
   id: ApplicationIds;
 };
 
@@ -18,6 +18,7 @@ type Props = {
 type Program = {
   id: ApplicationIds;
   position: Position;
+  index: number;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
@@ -28,6 +29,27 @@ export const OpenProgramsProvider = ({ children }: Props) => {
       }
       case "close": {
         return openPrograms.filter((program) => program.id !== action.id);
+      }
+      case "focus": {
+        const openProgramsCopy = [...openPrograms];
+        const focusCandidateIndex = openProgramsCopy.findIndex(
+          (program) => program.id === action.id
+        );
+
+        const focusCandidate = openProgramsCopy[focusCandidateIndex];
+
+        const oldIndex = focusCandidate.index;
+
+        console.log(focusCandidate);
+        focusCandidate.index = openProgramsCopy.length;
+
+        openProgramsCopy.forEach((program) => {
+          if (program.index > oldIndex) {
+            program.index--;
+          }
+        });
+
+        return openProgramsCopy;
       }
       default: {
         return [] as Program[];
@@ -42,6 +64,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
         y: 20,
         x: 20,
       },
+      index: 0,
     } as Program,
     {
       id: "bar",
@@ -49,6 +72,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
         y: 60,
         x: 60,
       },
+      index: 1,
     } as Program,
   ];
 

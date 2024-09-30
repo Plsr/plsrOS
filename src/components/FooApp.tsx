@@ -1,8 +1,14 @@
+import { ApplicationIds } from "../util/applicationsManifest";
 import { ApplicationWindow } from "./ApplicationWindow";
 
-export const FooApp = () => {
+type Props = {
+  index: number;
+  applicationId: ApplicationIds;
+};
+
+export const FooApp = ({ index, applicationId }: Props) => {
   return (
-    <ApplicationWindow>
+    <ApplicationWindow index={index} applicationId={applicationId}>
       <div className="p-4 bg-white inline-block text-black">Foo</div>
     </ApplicationWindow>
   );
