@@ -25,31 +25,25 @@ export const OpenProgramsProvider = ({ children }: Props) => {
   const reducer = (openPrograms: Program[], action: ReducerAction) => {
     switch (action.type) {
       case "open": {
-        return [...openPrograms, { id: action.id, position: { x: 0, y: 0 } }];
+        // Program to be opened is already open, just bring it to top
+        if (openPrograms.map((p) => p.id).includes(action.id)) {
+          return focusProgram(action.id, openPrograms);
+        }
+
+        return [
+          ...openPrograms,
+          {
+            id: action.id,
+            index: 10 + openPrograms.length,
+            position: { x: 0, y: 0 },
+          },
+        ];
       }
       case "close": {
         return openPrograms.filter((program) => program.id !== action.id);
       }
       case "focus": {
-        const openProgramsCopy = [...openPrograms];
-        const focusCandidateIndex = openProgramsCopy.findIndex(
-          (program) => program.id === action.id
-        );
-
-        const focusCandidate = openProgramsCopy[focusCandidateIndex];
-
-        const oldIndex = focusCandidate.index;
-
-        console.log(focusCandidate);
-        focusCandidate.index = openProgramsCopy.length;
-
-        openProgramsCopy.forEach((program) => {
-          if (program.index > oldIndex) {
-            program.index--;
-          }
-        });
-
-        return openProgramsCopy;
+        return focusProgram(action.id, openPrograms);
       }
       default: {
         return [] as Program[];
@@ -57,28 +51,9 @@ export const OpenProgramsProvider = ({ children }: Props) => {
     }
   };
 
-  const initialPrograms = [
-    {
-      id: "foo",
-      position: {
-        y: 20,
-        x: 20,
-      },
-      index: 0,
-    } as Program,
-    {
-      id: "bar",
-      position: {
-        y: 60,
-        x: 60,
-      },
-      index: 1,
-    } as Program,
-  ];
-
   const [openPrograms, openProgramsDispatch] = useReducer(
     reducer,
-    initialPrograms
+    [] as Program[]
   );
 
   return (
@@ -89,3 +64,26 @@ export const OpenProgramsProvider = ({ children }: Props) => {
     </OpenProgramsContext.Provider>
   );
 };
+
+function focusProgram(programId: string, openPrograms: Program[]) {
+  const openProgramsCopy = [...openPrograms];
+  const focusCandidateIndex = openProgramsCopy.findIndex(
+    (program) => program.id === programId
+  );
+
+  const focusCandidate = openProgramsCopy[focusCandidateIndex];
+
+  const oldIndex = focusCandidate.index;
+
+  // We add 10 so that open widows always have a higher z-index than
+  // our underlying desktop
+  focusCandidate.index = openProgramsCopy.length + 10;
+
+  openProgramsCopy.forEach((program) => {
+    if (program.index > oldIndex) {
+      program.index--;
+    }
+  });
+
+  return openProgramsCopy;
+}
