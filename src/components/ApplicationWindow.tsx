@@ -3,11 +3,17 @@ import Draggable from "react-draggable";
 import { OpenProgramsDispatchContext } from "./OpenProgramsContext";
 import { ApplicationIds } from "../util/applicationsManifest";
 
-export type ApplicationWindowProps = {
+type ApplicationWindowProps = {
   children: React.ReactElement;
   applicationId: ApplicationIds;
+  displayName: string;
   index: number;
 };
+
+export type ApplicationWindowChildProps = Omit<
+  ApplicationWindowProps,
+  "children"
+>;
 
 const SIZE = { width: 300, height: 200 };
 
@@ -15,6 +21,7 @@ export const ApplicationWindow = ({
   children,
   index,
   applicationId,
+  displayName,
 }: ApplicationWindowProps) => {
   const dispatch = useContext(OpenProgramsDispatchContext);
   const handleClick = () => {
@@ -40,7 +47,7 @@ export const ApplicationWindow = ({
       >
         <div className="flex flex-col bg-white h-full shadow-lg">
           <div id="top-bar" className="bg-stone-200">
-            Top Bar
+            {displayName}
           </div>
           {children}
         </div>

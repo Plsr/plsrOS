@@ -1,5 +1,8 @@
 import { createContext, Dispatch, useReducer } from "react";
-import { ApplicationIds } from "../util/applicationsManifest";
+import {
+  ApplicationIds,
+  applicationsManifest,
+} from "../util/applicationsManifest";
 import { Position } from "../types/shared";
 
 type ReducerAction = {
@@ -18,6 +21,7 @@ type Props = {
 type Program = {
   id: ApplicationIds;
   position: Position;
+  displayName: string;
   index: number;
 };
 
@@ -36,6 +40,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
             id: action.id,
             index: 10 + openPrograms.length,
             position: { x: 0, y: 0 },
+            displayName: applicationsManifest[action.id].displayName,
           },
         ];
       }
