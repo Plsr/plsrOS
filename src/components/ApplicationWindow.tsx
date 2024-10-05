@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Draggable from "react-draggable";
 import { OpenProgramsDispatchContext } from "./OpenProgramsContext";
 import { ApplicationIds } from "../util/applicationsManifest";
+import { XIcon } from "lucide-react";
 
 type ApplicationWindowProps = {
   children: React.ReactElement;
@@ -24,9 +25,13 @@ export const ApplicationWindow = ({
   displayName,
 }: ApplicationWindowProps) => {
   const dispatch = useContext(OpenProgramsDispatchContext);
+
   const handleClick = () => {
-    console.log("Will focus application: ", applicationId);
     dispatch!({ type: "focus", id: applicationId });
+  };
+
+  const handleCloseButtonClick = () => {
+    dispatch!({ type: "close", id: applicationId });
   };
 
   return (
@@ -46,8 +51,15 @@ export const ApplicationWindow = ({
         }}
       >
         <div className="flex flex-col bg-white h-full shadow-lg">
-          <div id="top-bar" className="bg-stone-200">
-            {displayName}
+          <div className="bg-stone-200 grid grid-cols-2 text-black">
+            <div className="flex">
+              <button onClick={handleCloseButtonClick}>
+                <XIcon className="width-3 height-3" />
+              </button>
+            </div>
+            <div id="top-bar" className="align-center">
+              {displayName}
+            </div>
           </div>
           {children}
         </div>
