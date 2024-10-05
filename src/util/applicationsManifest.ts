@@ -1,13 +1,18 @@
 import { ApplicationWindowChildProps } from "../components/ApplicationWindow";
 import { BarApp } from "../components/BarApp";
+import { DoomApp } from "../components/Doom.app";
 import { FooApp } from "../components/FooApp";
 
-export type ApplicationIds = "foo" | "bar";
+export type ApplicationIds = "foo" | "bar" | "doom";
+
 type ApplicationContract = {
   component: (props: ApplicationWindowChildProps) => JSX.Element;
   displayName: string;
+  appIcon?: string;
 };
+
 type ApplicationsManifest = { [key in ApplicationIds]: ApplicationContract };
+
 export const applicationsManifest: ApplicationsManifest = {
   foo: {
     component: FooApp,
@@ -16,5 +21,10 @@ export const applicationsManifest: ApplicationsManifest = {
   bar: {
     component: BarApp,
     displayName: "Bar",
+  },
+  doom: {
+    component: DoomApp,
+    displayName: "Doom",
+    appIcon: "doom",
   },
 };

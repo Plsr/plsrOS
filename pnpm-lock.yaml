@@ -11,9 +11,15 @@ importers:
       '@zattoo/use-double-click':
         specifier: ^1.2.0
         version: 1.2.0
+      emulators-ui:
+        specifier: ^0.73.9
+        version: 0.73.9
       jotai:
         specifier: ^2.10.0
         version: 2.10.0(@types/react@18.3.9)(react@18.3.1)
+      js-dos:
+        specifier: '7'
+        version: 7.5.0
       lucide-react:
         specifier: ^0.447.0
         version: 0.447.0(react@18.3.1)
@@ -728,6 +734,9 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
+  emulators-ui@0.73.9:
+    resolution: {integrity: sha512-Zx1eD9yHt+QjMwU0ay9FQKhyvvKucL1bRsTlZdHZsBrU3rNsZm52XODXFLSHMmAksEUe5TRocopWduJF7R9+xw==}
+
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
     engines: {node: '>=12'}
@@ -952,6 +961,9 @@ packages:
         optional: true
       react:
         optional: true
+
+  js-dos@7.5.0:
+    resolution: {integrity: sha512-7vI5HqE9MNkytyTwFVjqU+HyIPCWhwc4SmCp/eba7UC7ZhtcG043TFcfB62qdVPwGmzLCV01nm/NJceEOTeFdA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2028,6 +2040,8 @@ snapshots:
 
   emoji-regex@9.2.2: {}
 
+  emulators-ui@0.73.9: {}
+
   esbuild@0.21.5:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.21.5
@@ -2267,6 +2281,10 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.9
       react: 18.3.1
+
+  js-dos@7.5.0:
+    dependencies:
+      nanoid: 3.3.7
 
   js-tokens@4.0.0: {}
 

@@ -9,6 +9,7 @@ type ApplicationWindowProps = {
   applicationId: ApplicationIds;
   displayName: string;
   index: number;
+  aspectRatio?: number;
 };
 
 export type ApplicationWindowChildProps = Omit<
@@ -16,15 +17,21 @@ export type ApplicationWindowChildProps = Omit<
   "children"
 >;
 
-const SIZE = { width: 300, height: 200 };
+const TOP_BAR_HEIGHT = 30;
 
 export const ApplicationWindow = ({
   children,
   index,
   applicationId,
   displayName,
+  aspectRatio = 1.6,
 }: ApplicationWindowProps) => {
   const dispatch = useContext(OpenProgramsDispatchContext);
+  const DEFAULT_WIDTH = 600;
+  const SIZE = {
+    width: 600,
+    height: DEFAULT_WIDTH / aspectRatio + TOP_BAR_HEIGHT,
+  };
 
   const handleClick = () => {
     dispatch!({ type: "focus", id: applicationId });
@@ -52,12 +59,12 @@ export const ApplicationWindow = ({
       >
         <div className="flex flex-col bg-white h-full shadow-lg">
           <div className="bg-stone-200 grid grid-cols-2 text-black">
-            <div className="flex">
+            <div className="flex" style={{ height: TOP_BAR_HEIGHT }}>
               <button onClick={handleCloseButtonClick}>
                 <XIcon className="width-3 height-3" />
               </button>
             </div>
-            <div id="top-bar" className="align-center">
+            <div id="top-bar" className="align-center select-none">
               {displayName}
             </div>
           </div>
