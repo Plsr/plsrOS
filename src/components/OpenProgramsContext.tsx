@@ -23,6 +23,7 @@ type Program = {
   position: Position;
   displayName: string;
   index: number;
+  active: boolean;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
@@ -41,6 +42,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
             index: 10 + openPrograms.length,
             position: { x: 0, y: 0 },
             displayName: applicationsManifest[action.id].displayName,
+            active: true,
           },
         ];
       }
@@ -83,10 +85,12 @@ function focusProgram(programId: string, openPrograms: Program[]) {
   // We add 10 so that open widows always have a higher z-index than
   // our underlying desktop
   focusCandidate.index = openProgramsCopy.length + 10;
+  focusCandidate.active = true;
 
   openProgramsCopy.forEach((program) => {
     if (program.index > oldIndex) {
       program.index--;
+      program.active = false;
     }
   });
 
