@@ -1,6 +1,12 @@
 import { format } from "date-fns";
 import { useContext, useEffect, useState } from "react";
-import { OpenProgramsContext } from "./OpenProgramsContext";
+import { Menu, Item, useContextMenu } from "react-contexify";
+import {
+  OpenProgramsContext,
+  OpenProgramsDispatchContext,
+} from "./OpenProgramsContext";
+import "react-contexify/ReactContexify.css";
+import { ApplicationIds } from "../util/applicationsManifest";
 
 export const TaksBar = () => {
   const openPrograms = useContext(OpenProgramsContext);
@@ -9,7 +15,7 @@ export const TaksBar = () => {
       <StartButton />
       <div className="flex px-1 gap-2">
         {openPrograms.map((openProgram) => (
-          <TaksBarItem key={openProgram.id}>
+          <TaksBarItem programId={openProgram.id} key={openProgram.id}>
             {openProgram.displayName}
           </TaksBarItem>
         ))}
@@ -21,13 +27,40 @@ export const TaksBar = () => {
 
 type TaskBarItemProps = {
   children: React.ReactNode;
+  programId: ApplicationIds;
 };
 
-const TaksBarItem = ({ children }: TaskBarItemProps) => {
+const MENU_ID = "context_menu";
+
+const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
+  const dispatch = useContext(OpenProgramsDispatchContext);
+  const { show } = useContextMenu({
+    id: MENU_ID,
+  });
+
+  const handleRightClick = (event: any) => {
+    show({
+      event,
+    });
+  };
+
+  const handleCloseClick = () => {
+    dispatch!({ type: "close", id: programId });
+  };
+
   return (
-    <div className="my-1 flex items-center border px-4 min-w-48">
-      {children}
-    </div>
+    <>
+      <div
+        onContextMenu={handleRightClick}
+        className="my-1 flex items-center border px-4 min-w-48"
+      >
+        {children}
+      </div>
+      <Menu id={MENU_ID}>
+        <Item disabled>Minimize</Item>
+        <Item onClick={handleCloseClick}>Close</Item>
+      </Menu>
+    </>
   );
 };
 
