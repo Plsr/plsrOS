@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Draggable from "react-draggable";
 import { OpenProgramsDispatchContext } from "./OpenProgramsContext";
 import { ApplicationIds } from "../util/applicationsManifest";
-import { XIcon } from "lucide-react";
+import { EyeOffIcon, XIcon } from "lucide-react";
 
 type ApplicationWindowProps = {
   children: React.ReactElement;
@@ -41,6 +41,10 @@ export const ApplicationWindow = ({
     dispatch!({ type: "close", id: applicationId });
   };
 
+  const handleHideButtonClick = () => {
+    dispatch!({ type: "minimize", id: applicationId });
+  };
+
   return (
     <Draggable
       onStart={handleClick}
@@ -61,7 +65,10 @@ export const ApplicationWindow = ({
           <div className="bg-stone-200 grid grid-cols-2 text-black">
             <div className="flex" style={{ height: TOP_BAR_HEIGHT }}>
               <button onClick={handleCloseButtonClick}>
-                <XIcon className="width-3 height-3" />
+                <XIcon className="w-5 h-5" />
+              </button>
+              <button onClick={handleHideButtonClick}>
+                <EyeOffIcon className="w-4 h-4" />
               </button>
             </div>
             <div id="top-bar" className="align-center select-none">

@@ -6,7 +6,7 @@ import {
 import { Position } from "../types/shared";
 
 type ReducerAction = {
-  type: "open" | "close" | "focus";
+  type: "open" | "close" | "focus" | "minimize";
   id: ApplicationIds;
 };
 
@@ -23,7 +23,8 @@ type Program = {
   position: Position;
   displayName: string;
   index: number;
-  active: boolean;
+  focused: boolean;
+  hidden?: boolean;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
@@ -42,8 +43,8 @@ export const OpenProgramsProvider = ({ children }: Props) => {
             index: 10 + openPrograms.length,
             position: { x: 0, y: 0 },
             displayName: applicationsManifest[action.id].displayName,
-            active: true,
-          },
+            focused: true,
+          } as Program,
         ];
       }
       case "close": {
@@ -51,6 +52,15 @@ export const OpenProgramsProvider = ({ children }: Props) => {
       }
       case "focus": {
         return focusProgram(action.id, openPrograms);
+      }
+      case "minimize": {
+        return openPrograms.map((program) => {
+          if (program.id !== action.id) {
+            return program;
+          }
+
+          return { ...program, hidden: true };
+        });
       }
       default: {
         return [] as Program[];
@@ -85,12 +95,13 @@ function focusProgram(programId: string, openPrograms: Program[]) {
   // We add 10 so that open widows always have a higher z-index than
   // our underlying desktop
   focusCandidate.index = openProgramsCopy.length + 10;
-  focusCandidate.active = true;
+  focusCandidate.focused = true;
+  focusCandidate.hidden = false;
 
   openProgramsCopy.forEach((program) => {
     if (program.index > oldIndex) {
       program.index--;
-      program.active = false;
+      program.focused = false;
     }
   });
 

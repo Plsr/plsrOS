@@ -9,6 +9,10 @@ export const OS = () => {
   return (
     <Desktop>
       {openPrograms.map((p) => {
+        if (p.hidden) {
+          return null;
+        }
+
         const AppComponent = applicationsManifest[p.id].component;
         return (
           <AppComponent

@@ -38,6 +38,11 @@ const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
     id: MENU_ID,
   });
 
+  const handleItemClick = () => {
+    console.log("clicked");
+    dispatch!({ type: "focus", id: programId });
+  };
+
   const handleRightClick = (event: any) => {
     show({
       event,
@@ -51,6 +56,7 @@ const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
   return (
     <>
       <div
+        onClick={handleItemClick}
         onContextMenu={handleRightClick}
         className="my-1 flex items-center border px-4 min-w-48"
       >
