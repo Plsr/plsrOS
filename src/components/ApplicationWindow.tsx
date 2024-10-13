@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import Draggable from "react-draggable";
 import { OpenProgramsDispatchContext } from "./OpenProgramsContext";
 import { ApplicationIds } from "../util/applicationsManifest";
 import { EyeOffIcon, XIcon } from "lucide-react";
+import { Position } from "../types/shared";
 
 type ApplicationWindowProps = {
   children: React.ReactElement;
@@ -10,6 +11,7 @@ type ApplicationWindowProps = {
   displayName: string;
   index: number;
   aspectRatio?: number;
+  defaultPosition?: Position;
 };
 
 export type ApplicationWindowChildProps = Omit<
@@ -25,8 +27,10 @@ export const ApplicationWindow = ({
   applicationId,
   displayName,
   aspectRatio = 1.6,
+  defaultPosition = { x: 0, y: 0 },
 }: ApplicationWindowProps) => {
   const dispatch = useContext(OpenProgramsDispatchContext);
+  const appWindowRef = useRef<HTMLDivElement>(null);
   const DEFAULT_WIDTH = 600;
   const SIZE = {
     width: 600,
@@ -42,7 +46,14 @@ export const ApplicationWindow = ({
   };
 
   const handleHideButtonClick = () => {
-    dispatch!({ type: "minimize", id: applicationId });
+    if (!appWindowRef.current) {
+      throw new Error(
+        `Expected appWindowRef to have a value but was ${appWindowRef.current}`
+      );
+    }
+
+    const { x, y } = appWindowRef.current.getBoundingClientRect();
+    dispatch!({ type: "minimize", id: applicationId, lastPosition: { x, y } });
   };
 
   return (
@@ -50,10 +61,11 @@ export const ApplicationWindow = ({
       onStart={handleClick}
       bounds="parent"
       axis="both"
-      defaultPosition={{ x: 0, y: 0 }}
+      defaultPosition={defaultPosition}
       handle="#top-bar"
     >
       <div
+        ref={appWindowRef}
         style={{
           height: SIZE.height,
           width: SIZE.width,

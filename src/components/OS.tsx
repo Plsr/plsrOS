@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Desktop } from "./Desktop";
 import { OpenProgramsContext } from "./OpenProgramsContext";
 import { applicationsManifest } from "../util/applicationsManifest";
+import { ApplicationWindow } from "./ApplicationWindow";
 
 export const OS = () => {
   const openPrograms = useContext(OpenProgramsContext);
@@ -15,12 +16,14 @@ export const OS = () => {
 
         const AppComponent = applicationsManifest[p.id].component;
         return (
-          <AppComponent
-            key={p.id}
+          <ApplicationWindow
             index={p.index}
             applicationId={p.id}
             displayName={p.displayName}
-          />
+            defaultPosition={p.startPosition}
+          >
+            <AppComponent key={p.id} />
+          </ApplicationWindow>
         );
       })}
     </Desktop>

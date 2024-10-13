@@ -1,4 +1,3 @@
-import { ApplicationWindowChildProps } from "../components/ApplicationWindow";
 import { BarApp } from "../components/BarApp";
 import { DoomApp } from "../components/Doom.app";
 import { FooApp } from "../components/FooApp";
@@ -6,7 +5,7 @@ import { FooApp } from "../components/FooApp";
 export type ApplicationIds = "foo" | "bar" | "doom";
 
 type ApplicationContract = {
-  component: (props: ApplicationWindowChildProps) => JSX.Element;
+  component: () => JSX.Element;
   displayName: string;
   appIcon?: string;
 };

@@ -5,10 +5,16 @@ import {
 } from "../util/applicationsManifest";
 import { Position } from "../types/shared";
 
-type ReducerAction = {
-  type: "open" | "close" | "focus" | "minimize";
-  id: ApplicationIds;
-};
+type ReducerAction =
+  | {
+      type: "open" | "close" | "focus";
+      id: ApplicationIds;
+    }
+  | {
+      type: "minimize";
+      id: ApplicationIds;
+      lastPosition: Position;
+    };
 
 export const OpenProgramsContext = createContext<Program[]>([]);
 export const OpenProgramsDispatchContext =
@@ -20,11 +26,11 @@ type Props = {
 
 type Program = {
   id: ApplicationIds;
-  position: Position;
   displayName: string;
   index: number;
   focused: boolean;
   hidden?: boolean;
+  startPosition?: Position;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
@@ -41,7 +47,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
           {
             id: action.id,
             index: 10 + openPrograms.length,
-            position: { x: 0, y: 0 },
+            startPosition: { x: 0, y: 0 },
             displayName: applicationsManifest[action.id].displayName,
             focused: true,
           } as Program,
@@ -59,7 +65,11 @@ export const OpenProgramsProvider = ({ children }: Props) => {
             return program;
           }
 
-          return { ...program, hidden: true };
+          return {
+            ...program,
+            hidden: true,
+            startPosition: action.lastPosition,
+          };
         });
       }
       default: {
