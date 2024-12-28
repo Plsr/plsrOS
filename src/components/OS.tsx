@@ -20,7 +20,7 @@ export const OS = () => {
             index={p.index}
             applicationId={p.id}
             displayName={p.displayName}
-            defaultPosition={p.startPosition}
+            defaultPosition={p.lastPosition}
           >
             <AppComponent key={p.id} />
           </ApplicationWindow>

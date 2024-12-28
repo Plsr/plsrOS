@@ -41,11 +41,16 @@ export const ApplicationWindow = ({
     dispatch!({ type: "focus", id: applicationId });
   };
 
+  const handleDragStop = () => {
+    const lastPosition = getCurrentPosition();
+    dispatch!({ type: "updatePosition", id: applicationId, lastPosition });
+  };
+
   const handleCloseButtonClick = () => {
     dispatch!({ type: "close", id: applicationId });
   };
 
-  const handleHideButtonClick = () => {
+  const getCurrentPosition = () => {
     if (!appWindowRef.current) {
       throw new Error(
         `Expected appWindowRef to have a value but was ${appWindowRef.current}`
@@ -53,12 +58,18 @@ export const ApplicationWindow = ({
     }
 
     const { x, y } = appWindowRef.current.getBoundingClientRect();
-    dispatch!({ type: "minimize", id: applicationId, lastPosition: { x, y } });
+    return { x, y };
+  };
+
+  const handleHideButtonClick = () => {
+    const lastPosition = getCurrentPosition();
+    dispatch!({ type: "minimize", id: applicationId, lastPosition });
   };
 
   return (
     <Draggable
       onStart={handleClick}
+      onStop={handleDragStop}
       bounds="parent"
       axis="both"
       defaultPosition={defaultPosition}

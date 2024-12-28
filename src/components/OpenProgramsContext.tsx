@@ -7,11 +7,11 @@ import { Position } from "../types/shared";
 
 type ReducerAction =
   | {
-      type: "open" | "close" | "focus";
+      type: "open" | "close" | "focus" | "minimize";
       id: ApplicationIds;
     }
   | {
-      type: "minimize";
+      type: "updatePosition";
       id: ApplicationIds;
       lastPosition: Position;
     };
@@ -30,7 +30,7 @@ type Program = {
   index: number;
   focused: boolean;
   hidden?: boolean;
-  startPosition?: Position;
+  lastPosition: Position;
 };
 
 export const OpenProgramsProvider = ({ children }: Props) => {
@@ -47,7 +47,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
           {
             id: action.id,
             index: 10 + openPrograms.length,
-            startPosition: { x: 0, y: 0 },
+            lastPosition: { x: 0, y: 0 },
             displayName: applicationsManifest[action.id].displayName,
             focused: true,
           } as Program,
@@ -68,8 +68,19 @@ export const OpenProgramsProvider = ({ children }: Props) => {
           return {
             ...program,
             hidden: true,
-            startPosition: action.lastPosition,
-          };
+          } as Program;
+        });
+      }
+      case "updatePosition": {
+        return openPrograms.map((program) => {
+          if (program.id !== action.id) {
+            return program;
+          }
+
+          return {
+            ...program,
+            lastPosition: action.lastPosition,
+          } as Program;
         });
       }
       default: {

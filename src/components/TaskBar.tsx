@@ -39,7 +39,6 @@ const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
   });
 
   const handleItemClick = () => {
-    console.log("clicked");
     dispatch!({ type: "focus", id: programId });
   };
 
@@ -53,6 +52,10 @@ const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
     dispatch!({ type: "close", id: programId });
   };
 
+  const handleMinimizeClick = () => {
+    dispatch!({ type: "minimize", id: programId });
+  };
+
   return (
     <>
       <div
@@ -63,7 +66,7 @@ const TaksBarItem = ({ children, programId }: TaskBarItemProps) => {
         {children}
       </div>
       <Menu id={MENU_ID}>
-        <Item disabled>Minimize</Item>
+        <Item onClick={handleMinimizeClick}>Minimize</Item>
         <Item onClick={handleCloseClick}>Close</Item>
       </Menu>
     </>
