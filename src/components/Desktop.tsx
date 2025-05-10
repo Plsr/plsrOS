@@ -1,5 +1,5 @@
 import { DesktopIcon } from "./DesktopIcon";
-import { TaskBar } from "./TaskBar";
+import { Dock } from "./Dock";
 import { TopBar } from "./TopBar";
 
 type Props = {
@@ -20,7 +20,7 @@ export const Desktop = ({ children }: Props) => {
         </div>
       </div>
       <TopBar />
-      <TaskBar />
+      <Dock />
     </>
   );
 };

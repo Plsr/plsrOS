@@ -38,7 +38,7 @@ export const DesktopIcon = ({ name, id, appIcon }: Props) => {
           <span className="text-xs">{name.charAt(0)}</span>
         </div>
       )}
-      <span className="text-white text-shadow text-xs text-center font-bold">
+      <span className="text-white text-shadow-sm text-xs text-center font-bold">
         {name}
       </span>
     </div>
