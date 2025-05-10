@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@designbycode/tailwindcss-text-shadow": "^2.2.1",
     "@zattoo/use-double-click": "^1.2.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

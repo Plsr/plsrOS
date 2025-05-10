@@ -47,7 +47,7 @@ export const OpenProgramsProvider = ({ children }: Props) => {
           {
             id: action.id,
             index: 10 + openPrograms.length,
-            lastPosition: { x: 0, y: 0 },
+            lastPosition: { x: 20, y: 20 },
             displayName: applicationsManifest[action.id].displayName,
             focused: true,
           } as Program,

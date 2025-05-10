@@ -30,5 +30,6 @@ export const applicationsManifest: ApplicationsManifest = {
   calculator: {
     component: CalculatorApp,
     displayName: "Calculator",
+    appIcon: "calculator",
   },
 };
