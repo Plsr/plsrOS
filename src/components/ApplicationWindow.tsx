@@ -4,6 +4,8 @@ import { OpenProgramsDispatchContext } from "./OpenProgramsContext";
 import { ApplicationIds } from "../util/applicationsManifest";
 import { Position } from "../types/shared";
 
+import { WindowControl } from "./ui/WindowControl";
+
 type ApplicationWindowProps = {
   children: React.ReactElement;
   applicationId: ApplicationIds;
@@ -86,22 +88,20 @@ export const ApplicationWindow = ({
         <div className="flex flex-col bg-white h-full">
           <div
             id="top-bar"
-            className="bg-[#e3e3e3] bg-[repeating-linear-gradient(to_bottom,#e3e3e3,#e3e3e3_1px,#d8d8d8_1px,#d8d8d8_2px)] grid grid-cols-[60px_auto] text-black"
+            className="flex justify-between items-center bg-[#e3e3e3] bg-[repeating-linear-gradient(to_bottom,#e3e3e3,#e3e3e3_1px,#d8d8d8_1px,#d8d8d8_2px)]  text-black"
           >
-            <div className="flex" style={{ height: TOP_BAR_HEIGHT }}>
-              <button
-                onClick={handleCloseButtonClick}
-                className="w-3 h-3 rounded-full bg-[#ff5f57] mx-1 my-auto border border-[#e33e32]"
-              ></button>
-              <button
-                onClick={handleHideButtonClick}
-                className="w-3 h-3 rounded-full bg-[#ffbd2e] mx-1 my-auto border border-[#e09e1d]"
-              ></button>
-              <button className="w-3 h-3 rounded-full bg-[#28c941] mx-1 my-auto border border-[#14ae2c]"></button>
+            <div
+              className="flex items-center ml-2 gap-2"
+              style={{ height: TOP_BAR_HEIGHT }}
+            >
+              <WindowControl onClick={handleCloseButtonClick} color="red" />
+              <WindowControl onClick={handleHideButtonClick} color="yellow" />
+              <WindowControl color="green" />
             </div>
             <div className="align-center select-none text-sm font-medium flex items-center justify-center">
               {displayName}
             </div>
+            <div className="w-16" />
           </div>
           <div className="flex-grow bg-white border-t border-[#d1d1d1]">
             {children}
