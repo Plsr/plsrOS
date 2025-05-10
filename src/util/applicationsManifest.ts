@@ -1,8 +1,9 @@
 import { BarApp } from "../components/BarApp";
 import { DoomApp } from "../components/Doom.app";
 import { FooApp } from "../components/FooApp";
+import { CalculatorApp } from "../components/apps/CalculatorApp";
 
-export type ApplicationIds = "foo" | "bar" | "doom";
+export type ApplicationIds = "foo" | "bar" | "doom" | "calculator";
 
 type ApplicationContract = {
   component: () => JSX.Element;
@@ -25,5 +26,9 @@ export const applicationsManifest: ApplicationsManifest = {
     component: DoomApp,
     displayName: "Doom",
     appIcon: "doom",
+  },
+  calculator: {
+    component: CalculatorApp,
+    displayName: "Calculator",
   },
 };
