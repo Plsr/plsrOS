@@ -81,32 +81,29 @@ export const ApplicationWindow = ({
           zIndex: index ?? 1,
           position: "relative",
         }}
-        className="border-2 border-[#c0c0c0]"
+        className="border border-[#888888] rounded-md shadow-md"
       >
-        <div className="flex flex-col bg-[#c0c0c0] h-full shadow-lg border-t-2 border-l-2 border-t-[#ffffff] border-l-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]">
-          <div className="bg-[#000080] grid grid-cols-[60px_auto] text-white">
+        <div className="flex flex-col bg-white h-full">
+          <div
+            id="top-bar"
+            className="bg-[#e3e3e3] bg-[repeating-linear-gradient(to_bottom,#e3e3e3,#e3e3e3_1px,#d8d8d8_1px,#d8d8d8_2px)] grid grid-cols-[60px_auto] text-black"
+          >
             <div className="flex" style={{ height: TOP_BAR_HEIGHT }}>
               <button
                 onClick={handleCloseButtonClick}
-                className="px-1 py-0.5 bg-[#c0c0c0] text-black border border-t-[#ffffff] border-l-[#ffffff] border-r-[#404040] border-b-[#404040] text-xs font-bold mx-1 my-1"
-              >
-                X
-              </button>
+                className="w-3 h-3 rounded-full bg-[#ff5f57] mx-1 my-auto border border-[#e33e32]"
+              ></button>
               <button
                 onClick={handleHideButtonClick}
-                className="px-1 py-0.5 bg-[#c0c0c0] text-black border border-t-[#ffffff] border-l-[#ffffff] border-r-[#404040] border-b-[#404040] text-xs font-bold my-1"
-              >
-                _
-              </button>
+                className="w-3 h-3 rounded-full bg-[#ffbd2e] mx-1 my-auto border border-[#e09e1d]"
+              ></button>
+              <button className="w-3 h-3 rounded-full bg-[#28c941] mx-1 my-auto border border-[#14ae2c]"></button>
             </div>
-            <div
-              id="top-bar"
-              className="align-center select-none text-sm font-bold flex items-center"
-            >
+            <div className="align-center select-none text-sm font-medium flex items-center justify-center">
               {displayName}
             </div>
           </div>
-          <div className="flex-grow border-t border-l border-t-[#808080] border-l-[#808080] border-r border-b border-r-[#ffffff] border-b-[#ffffff] bg-[#ffffff]">
+          <div className="flex-grow bg-white border-t border-[#d1d1d1]">
             {children}
           </div>
         </div>
