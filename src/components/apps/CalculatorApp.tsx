@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { CalculatorButton } from "../ui/CalculatorButton";
+import { CalculatorInput } from "../ui/CalculatorInput";
+import { StripedBackground } from "../ui/StripedBackground";
 
 export const CalculatorApp = () => {
   const [display, setDisplay] = useState("0");
@@ -66,153 +69,81 @@ export const CalculatorApp = () => {
     setWaitingForOperand(false);
   };
 
+  console.log(display);
   return (
-    <div className=" inline-block bg-gray-200">
+    <StripedBackground className="inline-block py-4 px-2">
       <div className="flex flex-col p-2">
         {/* Display */}
-        <div className="bg-white p-1 mb-2 border border-gray-500 text-right">
-          <span className="text-xl text-black">{display}</span>
-        </div>
+        <CalculatorInput>{display}</CalculatorInput>
 
         {/* Buttons */}
-        <div className="grid grid-cols-5 gap-1">
+        <div className="grid grid-cols-5 gap-2 mt-4">
           {/* Row 1 */}
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            MC
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            MR
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            MS
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            M+
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm"
-            onClick={handleClear}
-          >
-            C
-          </button>
+          <CalculatorButton onClick={() => {}}>MC</CalculatorButton>
+          <CalculatorButton onClick={() => {}}>MR</CalculatorButton>
+          <CalculatorButton onClick={() => {}}>MS</CalculatorButton>
+          <CalculatorButton onClick={() => {}}>M+</CalculatorButton>
+          <CalculatorButton onClick={handleClear}>C</CalculatorButton>
 
           {/* Row 2 */}
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("7")}
-          >
+          <CalculatorButton onClick={() => handleNumberClick("7")}>
             7
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("8")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("8")}>
             8
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("9")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("9")}>
             9
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-red-700"
-            onClick={() => handleOperationClick("/")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleOperationClick("/")}>
             /
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            sqrt
-          </button>
+          </CalculatorButton>
+          <CalculatorButton onClick={() => {}}>sqrt</CalculatorButton>
 
           {/* Row 3 */}
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("4")}
-          >
+          <CalculatorButton onClick={() => handleNumberClick("4")}>
             4
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("5")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("5")}>
             5
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("6")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("6")}>
             6
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-red-700"
-            onClick={() => handleOperationClick("*")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleOperationClick("*")}>
             *
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            %
-          </button>
+          </CalculatorButton>
+          <CalculatorButton onClick={() => {}}>%</CalculatorButton>
 
           {/* Row 4 */}
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("1")}
-          >
+          <CalculatorButton onClick={() => handleNumberClick("1")}>
             1
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("2")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("2")}>
             2
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("3")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick("3")}>
             3
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-red-700"
-            onClick={() => handleOperationClick("-")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleOperationClick("-")}>
             -
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            1/x
-          </button>
+          </CalculatorButton>
+          <CalculatorButton onClick={() => {}}>1/x</CalculatorButton>
 
           {/* Row 5 */}
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick("0")}
-          >
+          <CalculatorButton onClick={() => handleNumberClick("0")}>
             0
-          </button>
-          <button className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-gray-500">
-            +/-
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-blue-700"
-            onClick={() => handleNumberClick(".")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => {}}>+/-</CalculatorButton>
+          <CalculatorButton onClick={() => handleNumberClick(".")}>
             .
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-red-700"
-            onClick={() => handleOperationClick("+")}
-          >
+          </CalculatorButton>
+          <CalculatorButton onClick={() => handleOperationClick("+")}>
             +
-          </button>
-          <button
-            className="bg-gray-300 p-2 border border-gray-500 shadow-sm text-red-700"
-            onClick={handleEquals}
-          >
-            =
-          </button>
+          </CalculatorButton>
+          <CalculatorButton onClick={handleEquals}>=</CalculatorButton>
         </div>
       </div>
-    </div>
+    </StripedBackground>
   );
 };
