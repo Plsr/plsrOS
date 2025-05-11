@@ -27,16 +27,18 @@ export const ApplicationWindow = ({
   index,
   applicationId,
   displayName,
-  aspectRatio = 1.6,
+  aspectRatio,
   defaultPosition = { x: 20, y: 20 },
 }: ApplicationWindowProps) => {
   const dispatch = useContext(OpenProgramsDispatchContext);
   const appWindowRef = useRef<HTMLDivElement>(null);
   const DEFAULT_WIDTH = 600;
-  const SIZE = {
-    width: 600,
-    height: DEFAULT_WIDTH / aspectRatio + TOP_BAR_HEIGHT,
-  };
+  const SIZE = aspectRatio
+    ? {
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_WIDTH / aspectRatio + TOP_BAR_HEIGHT,
+      }
+    : null;
 
   const handleClick = () => {
     dispatch!({ type: "focus", id: applicationId });
@@ -78,12 +80,12 @@ export const ApplicationWindow = ({
       <div
         ref={appWindowRef}
         style={{
-          height: SIZE.height,
-          width: SIZE.width,
+          height: SIZE?.height,
+          width: SIZE?.width,
           zIndex: index ?? 1,
           position: "relative",
         }}
-        className="border border-[#888888] rounded-md shadow-md"
+        className="inline-flex border border-[#888888] rounded-md shadow-md"
       >
         <div className="flex flex-col bg-white h-full">
           <div
